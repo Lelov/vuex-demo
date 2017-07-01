@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vuex@2.0.0"></script>
+<div id="app">
+  <p>{{count}}
+    <button @click="inc">+</button>
+    <button @click="dec">-</button>
+  </p>
+</div>
+</body>
+</html>
+
+<script>
+// new Vue({
+//   el:'#app',
+//   data () {
+//     return {
+//       count: 0
+//     }
+//   },
+//   methods: {
+//     inc () {
+//       this.count++
+//     },
+//     dec () {
+//       this.count--
+//     }
+//   }
+// })
+
+// 如果在模块化构建系统中，请确保在开头调用了 Vue.use(Vuex)
+  const store = new Vuex.Store({
+    state: {
+      count: 0
+    },
+    mutations: {
+      inc: state => state.count++,
+      dec: state => state.count--
+    }
+  })
+
+  const app = new Vue({
+    el: '#app',
+    computed: {
+      count () {
+          return store.state.count
+      }
+    },
+    methods: {
+      inc () {
+          store.commit('inc')
+      },
+      dec () {
+          store.commit('dec')
+      }
+    }
+  })
+
+</script>
